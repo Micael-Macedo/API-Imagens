@@ -1,0 +1,14 @@
+.imagens_section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.imagens{
+    display: flex;
+    gap: 20px 20px;
+    flex-wrap: wrap;
+}
+.imagens img{
+    width: 400px;
+}

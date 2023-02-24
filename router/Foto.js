@@ -38,33 +38,21 @@ router.post("/", upload.single('image'), (req, res, next) => {
     const formData = new FormData();
     formData.append('size', 'auto');
     formData.append('image_url', `http://localhost:8090/public/images/${req.file.destination}`);
+    
 
-    axios({
-        method: 'post',
-        url: 'https://api.remove.bg/v1.0/removebg',
-        data: formData,
-        responseType: 'arraybuffer',
-        headers: {
-            ...formData.getHeaders(),
-            'X-Api-Key': 'ciunUWx66wTKKErDT9ubprAh',
-        },
-        encoding: null
-    })
-        .then((response) => {
-            if (response.status != 200) return console.error('Error:', response.status, response.statusText);
-            fs.writeFileSync("no-bg.png", response.data);
-        })
-        .catch((error) => {
-            return console.error('Request failed:', error);
-        });
     db.cadastrarImagens(req.body.idUser, req.file.originalname, req.file.filename)
     res.redirect("http://localhost:8090/");
 })
-
 router.get("/imagens/:id", (req, res, next) => {
-    id = req.params.id
-    db.getImagemResult(function (id, imagem) {
-        res.json(imagem)
+    db.getImagemById(req.params.id, function(err,imagens) {
+        if(err){res.status(404)}
+        else{ res.status(200).json(imagens)} 
+    })
+});
+router.get("/imagens/user/:id", (req, res, next) => {
+    db.getImagemByUser(req.params.id, function(err,imagens) {
+        if(err){res.status(404)}
+        else{ res.status(200).json(imagens)} 
     })
 });
 

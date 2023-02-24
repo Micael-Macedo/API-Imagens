@@ -8,16 +8,22 @@ const conn = mysql.createConnection({
 exports.cadastrarImagens = (idUser, nomeArquivo, caminho) => {
     conn.query("Insert into images(idUser, nomeArquivo, caminho) values (?,?,?)", [idUser, nomeArquivo, caminho]);
 }
-exports.getImagemResult = (idImage, callback) =>{
-    getImagem(idImage, function(err, result){
-        if(err) return callback('Erro ao buscar imagens')
-        return callback(null, result)
+exports.getImagemById = (idImage, callback) =>{
+    conn.query("SELECT * FROM images WHERE id = ?", [idImage], function (err, result) {
+        if (err)  return callback(err,null);
+        else callback(null, result[0])
     })
 }
-function getImagem(idImage, callback){
+exports.getImagemById = (idImage, callback) =>{
     conn.query("SELECT * FROM images WHERE id = ?", [idImage], function (err, result) {
-        if (err)  return callback(err);
-        callback(null, result[0])
+        if (err)  return callback(err,null);
+        else callback(null, result[0])
+    })
+}
+exports.getImagemByUser = (idUser, callback) =>{
+    conn.query("SELECT * FROM images WHERE idUser = ?", [idUser], function (err, result) {
+        if (err)  return callback(err,null);
+        else callback(null, result)
     })
 }
 

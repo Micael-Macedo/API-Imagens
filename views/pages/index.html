@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="http://localhost:8090/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 </head>
 <body>
     <h2>Armazenamento de imagens</h2>
@@ -13,5 +15,20 @@
         <input type="file" name="image">
         <button type="submit">Upload</button>
     </form>
+    <div>
+        <h2>Buscar imagens pelo id</h2>
+        <input type="text" name="" id="imgId">
+        <button onclick="buscarImagem()">Buscar</button>
+    </div>
+    <div>
+        <h2>Buscar imagens pelo usuario</h2>
+        <input type="text" id="userId">
+        <button onclick="buscarImagemUsuario()">Buscar</button>
+    </div>
+    <div class="imagens_section">
+        <div class="imagens">
+        </div>
+    </div>
+    <script src="http://localhost:8090/js/script.js"></script>
 </body>
 </html>
